@@ -12,16 +12,20 @@ public class Aeronave{
         Fabricante = fabricante;
     }
 
-    //Propriedades Automáticas
-    // Caracteristicas de objeto
-    //Automático:gera o get set
-    //Métodos set  -atribui
-    //Métodod ger -recupera
-    //POCO-foco é o objeto
-    public int? Id{get;set;}
+
+public int? Id{get;set;}
 public string? Codigo{ get;set;} 
 public string? Modelo {get;set;}
 
 public string? Fabricante{get;set;}
 public ICollection<Manutencao> manutencaos {get;set;}
 }
+
+    // Properiedades Automáticas
+    // Características do objeto
+    // Automático: gera get e set
+    // Metodo set - atribui
+    // Método get - recupera
+    // POCO - o foco é o objeto
+
+
