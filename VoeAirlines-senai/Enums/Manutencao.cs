@@ -1,21 +1,19 @@
 namespace VoeAirlinesSenai.Entities;
 using VoeAirlinesSenai.Entities.Enums;
-public class  Manutencao{
-    public Manutencao(DateTime dataHora, TipoManutencao tipo, int aeronaveId,string? observacoes=null)
+public class Manutencao
+{
+    public Manutencao(DateTime dataHora,TipoManutencao tipo, int aeronaveId,string? observacoes=null)
     {
         DataHora = dataHora;
-        this.observacoes = observacoes;
-        this.tipo = tipo;
+        Observacoes = observacoes;
+        Tipo = tipo;
         AeronaveId = aeronaveId;
-       
     }
 
-
-    public int Id {get;set;}
-    public DateTime DataHora {get;set;}
-    public string? observacoes {get;set;}
-    public TipoManutencao tipo { get;set;}
-    public int AeronaveId {get;set;}
-    public Aeronave Aeronave { get;set;}=null!;
-
+    public int Id { get; set; }
+    public DateTime DataHora { get; set; }
+    public string? Observacoes { get; set; }
+    public TipoManutencao Tipo { get; set; }
+    public int AeronaveId { get; set; }
+    public Aeronave Aeronave { get; set; } = null!;
 }
