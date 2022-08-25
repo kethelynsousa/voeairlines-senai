@@ -9,7 +9,6 @@ public class Manutencao
         Tipo = tipo;
         AeronaveId = aeronaveId;
     }
-
     public int Id { get; set; }
     public DateTime DataHora { get; set; }
     public string? Observacoes { get; set; }
