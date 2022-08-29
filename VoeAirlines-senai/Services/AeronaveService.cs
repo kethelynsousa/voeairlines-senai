@@ -1,6 +1,6 @@
 using VoeAirlinesSenai.Contexts;
-using VoeAirlinesSenai.Entities;
-using VoeAirlinesSenai.ViewModels;
+using VoeAirlines.Entities;
+using VoeAirlines.ViewModels;
 
 namespace VoeAirlinesSenai.Services;
 
@@ -31,40 +31,43 @@ public class AeronaveService{
             aeronave.Modelo,
             aeronave.Codigo
         );
-    } 
-     public IEnumerable<ListarAeronaveViewModel>ListarAeronave(){
+    }
+
+    internal object ListarAeronavePeloId(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<ListarAeronaveViewModel>ListarAeronave(){
         
          return _context.Aeronaves.Select(a=>new ListarAeronaveViewModel(a.Id,a.Modelo,a.Codigo));
      }
-   public DetalhesAeronaveViewModel listarAeronavePeloId(int id ){
-
-    var aeronave= _context.Aeronaves.Find(id);
-    if(aeronave !=null){
-        return new DetalhesAeronaveViewModel(
-        aeronave.Id,
-        aeronave.Fabricante,
-        aeronave.Modelo,
-        aeronave.Codigo);
+    public void ExcluirAeronave(int id){
+        var aeronave = _context.Aeronaves.Find(id);
+        if(aeronave != null){
+            _context.Remove(aeronave);
+            _context.SaveChanges();
+        }
     }
-    return null;
-   }
-   public DataMisalignedException AtualizarAeronave(AtualizarAeronaveViewModel dados){
+  
+    public DetalhesAeronaveViewModel? AtualizarAeronave(AtualizarAeronaveViewModel dados){
+              
+              var aeronave = _context.Aeronaves.Find(dados.Id);
+              if(aeronave != null){
+                  aeronave.Fabricante = dados.Fabricante;
+                  aeronave.Modelo = dados.Modelo;
+                  aeronave.Codigo = dados.Codigo;
+                  _context.Update(aeronave);
+                  _context.SaveChanges();
+                  return new DetalhesAeronaveViewModel(aeronave.Id,aeronave.Fabricante,aeronave.Modelo,aeronave.Codigo);
 
-    return null ;
+              }
+              return null; 
+     
+    }
 
-   }
     
-public void Excluir(int id){
-    var aeronave= _context.Aeronaves.Find(id);
-    if(aeronave !=null)
-{ _context.Remove(aeronave);
-  _context.SaveChanges();
-}
+
+
 
 }
-
-}
-
-
-
-

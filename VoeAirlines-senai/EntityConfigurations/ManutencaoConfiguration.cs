@@ -1,25 +1,26 @@
-using VoeAirlinesSenai.Entities;
+using VoeAirlinesSenai.Contexts;
+using VoeAirlines.Entities;
+using VoeAirlines.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace VoeAirlinesSenai.EntityConfigurations;
-
-public class ManutencaoConfiguration:IEntityTypeConfiguration<Manutencao>
+public class ManutencaoConfiguration : IEntityTypeConfiguration<Manutencao>
 {
-   public void Configure (EntityTypeBuilder<Manutencao> builder)
-   {
-   builder.ToTable("Manutencao");
-   builder.HasKey(m=>m.Id);
-   builder.Property(m=>m.DataHora)
-          .IsRequired()
-          .HasMaxLength(80);
-   builder.Property(m=>m.Observacoes)
-          .IsRequired()
-          .HasMaxLength(10);
-    builder.Property(m=>m.Tipo)
-          .IsRequired()
-          .HasMaxLength(100);
-   }
+    public void Configure(EntityTypeBuilder<Manutencao> builder)
+    {
+        //Tabela?
+        builder.ToTable("Manutencao");
 
+        //Chave primária
+        builder.HasKey(m=>m.Id);
+
+        //Propriedade DataHora
+        builder.Property(m=>m.DataHora)
+             .IsRequired();
+        //Propriedade Tipo
+        builder.Property(m=>m.Tipo)
+              .IsRequired();
+        builder.Property(m=>m.Observacao)
+              .HasMaxLength(100);      
+
+    } 
 }
-

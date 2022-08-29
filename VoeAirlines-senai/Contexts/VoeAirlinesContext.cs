@@ -1,7 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
-using VoeAirlinesSenai.Entities;
-using VoeAirlinesSenai.EntityConfigurations;
+using VoeAirlines.Entities;
+using VoeAirlines.EntityConfigurations;
 
 namespace VoeAirlinesSenai.Contexts;
 
