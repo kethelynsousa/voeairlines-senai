@@ -1,52 +1,65 @@
-/*using VoeAirlinesSenai.Contexts;
+using VoeAirlinesSenai.Contexts;
 using VoeAirlines.Entities;
-using VoeAirlines.ViewModels;
+using VoeAirlines.ViewModels.Manutencao;
 using Microsoft.AspNetCore.Mvc;
 using VoeAirlinesSenai.Services;
- 
- namespace VoeAirlines.Services;
-[Route("api/Manutencao")]
-[ApiController]
-public class ManutencaoController : ControllerBase{
 
-{
-    private readonly ManutencaoService _ManutencaoService;
+namespace VoeAirlines.Controller;
 
-    public ManutencaoController(ManutencaoService ManutencaoService)
+   [Route("api/manutencao")]
+    [ApiController]
+    public class ManutencaoController : ControllerBase
     {
-        _ManutencaoService = ManutencaoService;
-    }
+        private readonly ManutencaoService _manutencaoService;
 
-    [HttpGet]
-    public IActionResult ListarManutencao(){
-        var Manutencao = _ManutencaoService.ListarManutencao();
-        return Ok(Manutencao);
-    }
-     [HttpGet("{id}")]
-    public IActionResult ListarManutencaoPeloId(int id){
-        
-        var Manutencao = _ManutencaoService.ListarManutencaoPeloId(id);
-        if(Manutencao!=null){
-            return Ok(Manutencao);
+        public ManutencaoController(ManutencaoService manutencaoService)
+        {
+            _manutencaoService = manutencaoService;
         }
-        return NotFound();
-    }
-    [HttpPut("{id}")]
-    public IActionResult AtualizarManutencao(int id,AtualizarManutencaoViewModel dados){
-        if(id != dados.Id){
-            return BadRequest("O id informado na URL é diferente do id informado no corpo da requisição");
+
+        [HttpGet]
+        public IActionResult ListarManutencao()
+        {
+            var manutencao = _manutencaoService.ListarManutencoes();
+            return Ok(manutencao);
         }
-        var Manuntecao = _ManutencaoService.AtualizarManutencao(dados);
-        return Ok(Manuntecao);
+
+        [HttpGet("{id:int}")]
+        public IActionResult ListarPorId(int id)
+        {
+            var manutencao = _manutencaoService.ListarManutencaoPorId(id);
+            return Ok (manutencao);
+        }
+
+
+
+    [HttpGet("porAeronave/{aeronaveId}")]
+        public IActionResult ListarPorAeronave(int aeronaveId)
+        {
+            var manutencoes = _manutencaoService.ListarManutencoesPorAeronave(aeronaveId);
+            return Ok(manutencoes);
+        }
+
+        [HttpPost]
+        public IActionResult AdicionarManutencao(AdicionarManutencaoViewModel dados) 
+        {
+            var manutencao = _manutencaoService.AdicionarManutencao(dados);
+            return Created(nameof(AdicionarManutencao), manutencao);
+        }
+
+        [HttpPut("{id:int}")]
+        public IActionResult AtualizarManutencao(int id, AtualizarManutencaoViewModel dados) 
+        {
+            var manutencao = _manutencaoService.AtualizarManutencao(id, dados);
+            return Ok(manutencao);
+        }
+
+        [HttpDelete("{id:int}")]
+        public IActionResult RemoverManutencao(int id)
+        {
+            var manutencao = _manutencaoService.RemoverManutencao(id);
+            return Ok(manutencao);
+        }
+
+
     }
-
-    [HttpDelete("{id}")]
-    public IActionResult ExcluirManutencao(int id){
-        _ManutencaoService.ExcluirManutencao(id);
-        return NoContent();
-    }
-}
-
-}
-
-*/

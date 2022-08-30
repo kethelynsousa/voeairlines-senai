@@ -1,68 +1,83 @@
 using VoeAirlinesSenai.Contexts;
 using VoeAirlines.Entities;
-using VoeAirlines.ViewModels;
+using VoeAirlines.ViewModels.Manutencao;
 
 namespace VoeAirlinesSenai.Services;
 
-public class ManutencaoService{
-    
-    
-    //propriedade para injeção de dependência
-    private readonly VoeAirlinesContext _context;
 
-    public ManutencaoService(VoeAirlinesContext context)
+    public class ManutencaoService
     {
-        _context = context;
-    }
+        public readonly VoeAirlinesContext _context;
 
-    //public DetalhesManutencaoViewModel AdicionarManutencao(AdicionarManutencaoViewModel dados)
-    //{
-        
-        /*
-        var Manutencao = new Manutencao(dados.Fabricante, dados.Modelo, dados.Codigo,dados.Celebridade);
+        public ManutencaoService(VoeAirlinesContext context)
+        {
+            _context = context;
+        }
 
-        _context.Add(Manutencao);
-        _context.SaveChanges();
+        public DetalhesManutencaoViewModel AdicionarManutencao(DetalhesManutencaoViewModel dados)
+        {
+            var manutencao = new Manutencao(dados.DataHora,dados.tipoManutencao,dados.AeronaveId,dados.Observacao);
+            _context.Add(manutencao);
+            _context.SaveChanges();
 
-        return new DetalhesManutencaoViewModel
-        (
-            Manutencao.Id,
-            Manutencao.Fabricante,
-            Manutencao.Modelo,
-            manuntecao.Codigo
-        );
-    }
+            return new DetalhesManutencaoViewModel(manutencao.Id,manutencao.DataHora,manutencao.TipoManutencao,manutencao.Observacao,manutencao.AeronaveId);
+        }
 
-    internal object ListarManutencaoPeloId(int id)
+        public DetalhesManutencaoViewModel? AtualizarManutencao(int id, AtualizarManutencaoViewModel dados)
+        {
+            var manutencao = _context.Manutencoes.Find(id);
+            if (manutencao != null)
+            {
+                manutencao.DataHora = dados.DataHora;
+                manutencao.TipoManutencao = dados.TipoManutencao;
+                manutencao.Observacao = dados.Observacao;
+                manutencao.AeronaveId = dados.AeronaveId;                
+                _context.Update(manutencao);
+                _context.SaveChanges();
+                return new DetalhesManutencaoViewModel(manutencao.Id, manutencao.DataHora, manutencao.TipoManutencao, manutencao.Observacao, manutencao.AeronaveId);
+
+            }
+            return null;
+
+        }
+
+    internal object AdicionarManutencao(AdicionarManutencaoViewModel dados)
     {
         throw new NotImplementedException();
-    }*/
+    }
 
-    //public IEnumerable<ListarManuntecaoViewModel>ListarManutencao(){
-        
-    //    return _context.Manutencoes.Select(a=>new ListarManutencaoViewModel(a.Id,a.Modelo,a.Codigo));
-    // }
-    //public void ExcluirManutencao(int id){
-    //    var aeronave = _context.Aeronaves.Find(id);
-      //  if(aeronave != null){
-            //_context.Remove(aeronave);
-           //_context.SaveChanges();
-      //  }
-    //}
-   /*
-    public DetalhesManutencaoViewModel? AtualizarAeronave(AtualizarAeronaveViewModel dados){
-              
-              var aeronave = _context.Aeronaves.Find(dados.Id);
-              if(aeronave != null){
-                  aeronave.Fabricante = dados.Fabricante;
-                  aeronave.Modelo = dados.Modelo;
-                  aeronave.Codigo = dados.Codigo;
-                  _context.Update(aeronave);
-                  _context.SaveChanges();
-                  return new DetalhesManutencaoViewModel(aeronave.Id,aeronave.Fabricante,aeronave.Modelo,aeronave.Codigo);
+    public IEnumerable<ListarManutencaoViewModel> ListarManutencoes()
+        {
+            return _context.Manutencoes.Select(x => new ListarManutencaoViewModel(x.Id, x.DataHora, x.TipoManutencao, x.Observacao, x.AeronaveId)) ;
+        }
 
-              }
-              return null; 
-     
-    }*/
-}
+        public ListarManutencaoViewModel? ListarManutencaoPorId(int id)
+        {
+            var manutencao = _context.Manutencoes.Find(id);
+            if (manutencao != null)
+            {
+                return new ListarManutencaoViewModel(manutencao.Id, manutencao.DataHora, manutencao.TipoManutencao, manutencao.Observacao, manutencao.AeronaveId);
+            }
+            return null;
+        }
+
+        public IEnumerable<ListarManutencaoViewModel> ListarManutencoesPorAeronave(int aeronaveId)
+        {
+            return _context.Manutencoes.Where(x => x.AeronaveId == aeronaveId).Select(x => new ListarManutencaoViewModel(x.Id, x.DataHora, x.TipoManutencao, x.Observacao, x.AeronaveId));
+        }
+
+        public DetalhesManutencaoViewModel? RemoverManutencao(int id)
+        {
+            var manutencao = _context.Manutencoes.Find(id);
+            if (manutencao != null)
+            {
+                if (id == manutencao.Id)
+                {
+                    _context.Manutencoes.Remove(manutencao);
+                    _context.SaveChanges();
+                    return new DetalhesManutencaoViewModel(manutencao.Id, manutencao.DataHora, manutencao.TipoManutencao, manutencao.Observacao, manutencao.AeronaveId);
+                }
+            }
+            return null;
+        }
+    }

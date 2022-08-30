@@ -1,18 +1,21 @@
-namespace VoeAirlines.ViewModels;
+using VoeAirlines.Entities.Enums;
+
+namespace VoeAirlines.ViewModels.Manutencao;
 public class AtualizarManutencaoViewModel
 {
-    public AtualizarManutencaoViewModel(int id, string fabricante, TipoManuntecao manuntecao, string modelo, string codigo)
+    public AtualizarManutencaoViewModel(DateTime dataHora, TipoManutencao tipoManuntecao, string? observacao, int aeronaveId)
     {
-        Id = id;
-        Fabricante = fabricante;
-        Manuntecao = manuntecao;
-        Modelo = modelo;
-        Codigo = codigo;
+        DataHora = dataHora;
+        this.TipoManutencao = tipoManuntecao;
+        Observacao = observacao;
+        AeronaveId = aeronaveId;
     }
 
-    public int Id { get; set; }
-    public string Fabricante { get; set; }
-   public TipoManuntecao Manuntecao{ get; set;}
-    public string Modelo { get; set; }
-    public string Codigo { get; set; }
+    public DateTime DataHora { get; set; }
+    public TipoManutencao TipoManutencao { get; set; }
+    public string? Observacao { get; set; }
+    public int AeronaveId { get; set; }
+
 }
+
+

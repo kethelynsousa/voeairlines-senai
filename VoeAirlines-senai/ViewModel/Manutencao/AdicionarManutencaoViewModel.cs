@@ -1,24 +1,23 @@
-
 using VoeAirlines.Entities.Enums;
 
-namespace VoeAirlines.ViewModels;
+namespace VoeAirlines.ViewModels.Manutencao;
 
-
-public class AdicionarManutencaoViewModel
-{
-    public AdicionarManutencaoViewModel(string fabricante, string modelo, TipoManuntecao manuntecao, string codigo, string celebridade)
+           
+    public class AdicionarManutencaoViewModel
+   {
+    public AdicionarManutencaoViewModel(DateTime dataHora, TipoManutencao tipoManutencao, string? observacao, int aeronaveId)
     {
-        Fabricante = fabricante;
-        Modelo = modelo;
-        Manuntecao = manuntecao;
-        Codigo = codigo;
-        Celebridade = celebridade;
+        DataHora = dataHora;
+        this.tipoManutencao = tipoManutencao;
+        Observacao = observacao;
+        AeronaveId = aeronaveId;
     }
 
-    public string Fabricante { get; set; }
-    public string Modelo { get; set; }
-    public TipoManuntecao Manuntecao{ get; set;}
-    public string Codigo { get; set; }
-    public string Celebridade { get; set; }
+    public DateTime DataHora { get; set; }
+         public TipoManutencao tipoManutencao { get; set; }
+        public string? Observacao { get; set; }
+        public int AeronaveId { get; set; }
+   }
 
-}
+    
+    
