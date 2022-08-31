@@ -1,8 +1,9 @@
 using VoeAirlinesSenai.Contexts;
 using VoeAirlines.Entities;
-using VoeAirlines.ViewModels.Manutencao;
+using VoeAirlines.ViewModels.Piloto;
 using Microsoft.AspNetCore.Mvc;
 using VoeAirlinesSenai.Services;
+
 namespace VoeAirlines.Controllers
 {
     [Route("api/pilotos")]
