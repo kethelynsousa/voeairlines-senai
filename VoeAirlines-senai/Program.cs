@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<VoeAirlinesContext>();
 builder.Services.AddTransient<AeronaveService>();
 builder.Services.AddTransient<ManutencaoService>();
+builder.Services.AddTransient<CancelamentoService>();
 
 
 

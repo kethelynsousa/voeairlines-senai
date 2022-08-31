@@ -8,7 +8,7 @@ public class CancelamentoConfiguration : IEntityTypeConfiguration<Cancelamento>
 {
     public void Configure(EntityTypeBuilder<Cancelamento> builder)
     {
-        builder.ToTable("Cancelamentos");
+        builder.ToTable("Cancelamento");
         builder.HasKey(c => c.Id);
         builder.Property(c => c.Motivo)
             .IsRequired()

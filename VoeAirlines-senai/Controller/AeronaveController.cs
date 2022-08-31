@@ -4,7 +4,7 @@ using VoeAirlines.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using VoeAirlinesSenai.Services;
 
-namespace VoeAirlines.Services;
+namespace VoeAirlines.Controller;
 [Route("api/aeronaves")]
 [ApiController]
 public class AeronaveController : ControllerBase
